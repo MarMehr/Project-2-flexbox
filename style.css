@@ -1,0 +1,202 @@
+/* =========================================================
+   Comp584 Tech Shop — Final CSS (Row 1 = 2 per row)
+   ========================================================= */
+html{box-sizing:border-box;}
+*,*::before,*::after{box-sizing:inherit;}
+
+:root{
+  --teal-light:#A3CDD9;
+  --olive:#697361;
+  --cream:#FDF9E0;
+  --teal-muted:#A0BDBA;
+  --offwhite:#FFFFFC;
+  --gold:#D9C277;
+  --bg:#FFFFFC;
+  --text:#232A2F;
+  --card-radius:12px;
+  --card-shadow:0 2px 8px rgba(0,0,0,.06);
+  --gutter:4%;
+}
+
+/* ---------- Base ---------- */
+body{font-family:Arial,Helvetica,sans-serif;color:var(--text);background:var(--bg);margin:0;}
+a{color:#2772B0;text-decoration:none;}
+.wrapper{width:97%;max-width:1200px;margin:0 auto;background:var(--offwhite);}
+
+/* ---------- Flex Grid ---------- */
+.row{display:flex;flex-flow:row wrap;row-gap:1rem;}
+[class*="col-"]{margin-left:var(--gutter);flex:0 0 calc(100% - var(--gutter)*2);}
+
+/* ---------- Desktop column math ---------- */
+@media(min-width:768px){
+  .col-1{flex:0 0 20%;}
+  .col-2{flex:0 0 44%;}
+  .row-3 .col-1{flex-basis:20%;}
+  .row-3 .col-3{flex-basis:72%;}
+  .row-4 .col-4{flex-basis:96%;}
+}
+
+/* =========================================================
+   ROW 1 — Two cards per row (override default 4)
+   ========================================================= */
+@media(min-width:768px){
+  .row-1 .col-1{flex-basis:44%;}
+}
+@media(min-width:480px)and(max-width:767.98px){
+  .row-1 .col-1{flex-basis:44%;}
+}
+@media(max-width:479.98px){
+  .row-1 .col-1{flex-basis:calc(100% - var(--gutter)*2);}
+}
+
+/* ---------- Card Styling ---------- */
+.card{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;  /* image sits between title & details */
+  text-align:center;
+  padding:1rem;
+  background:var(--offwhite);
+  border-radius:var(--card-radius);
+  box-shadow:var(--card-shadow);
+  border:1px solid rgba(0,0,0,.04);
+  height:100%;
+  transition:transform .4s ease,box-shadow .4s ease;
+}
+.card:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(0,0,0,.1);}
+.card h3,.card h4,.hero h2{margin:0 0 .6rem;color:#1e272e;letter-spacing:.2px;}
+.card p{margin:.5rem 0;line-height:1.4;}
+
+/* ---------- Colored Boxes (match “dog theme” style) ---------- */
+.col-1{background:var(--teal-light);}
+.col-2{background:var(--cream);}
+.col-3{background:var(--teal-muted);}
+.col-4{background:var(--teal-light);}
+
+/* ---------- Media (centered images) ---------- */
+.media{
+  position:relative;
+  width:70%;
+  aspect-ratio:1/1;       /* uniform square by default */
+  overflow:hidden;
+  border-radius:10px;
+  background:#eef2f7;
+  margin:.5rem auto;
+  transition:transform .5s cubic-bezier(.2,.7,.2,1);
+}
+.media img{width:100%;height:100%;object-fit:cover;display:block;}
+.card:hover .media img{transform:scale(1.05);}
+
+/* Wide/Hero variants keep their aspect ratios */
+.media.wide{aspect-ratio:16/9;width:85%;}
+.media.hero{aspect-ratio:21/9;width:90%;}
+.media.sq{aspect-ratio:1/1;width:70%;}
+
+/* ---------- Buttons ---------- */
+.btn{display:inline-block;margin-top:.45rem;padding:.5rem .85rem;background:var(--gold);color:#2d2d2d;border-radius:8px;border:1px solid rgba(0,0,0,.05);}
+
+/* ---------- Lists / Details helpers ---------- */
+.feature .bullets{margin:.5rem 0 0;padding-left:1.15rem;}
+.row-4 .hero h2{margin-top:0;}
+.meta{margin:.5rem 0 .25rem;padding-left:1.1rem;font-size:.95rem;}
+.meta li{margin:.15rem 0;}
+.price{font-weight:700;margin:.35rem 0 .15rem;}
+.rating{font-weight:400;color:var(--olive);margin-left:.35rem;}
+
+/* ---------- Tablet Responsive ---------- */
+@media(min-width:480px)and(max-width:767.98px){
+  .col-1,.col-2{flex-basis:44%;}
+  .row-3 .col-3{flex-basis:calc(100% - var(--gutter)*2);}
+  .row-4 .col-4{flex-basis:calc(100% - var(--gutter)*2);}
+
+  /* Row 5 order change on tablet */
+  .row-5 .item-b{order:1;}
+  .row-5 .item-a{order:2;}
+  .row-5 .item-c{order:3;}
+}
+
+/* ---------- Desktop Row 5 order restore ---------- */
+@media(min-width:768px){
+  .row-5 .item-a,.row-5 .item-c{flex-basis:20%;}
+  .row-5 .item-b{flex-basis:44%;}
+  .row-5 .item-a,.row-5 .item-b,.row-5 .item-c{order:0;}
+}
+
+/* =========================================================
+   ROW 6 — Animated Border Cards (unique design)
+   ========================================================= */
+.row-6.fx-tilt{
+  background:#F2E8FF;     /* full-width band color */
+  border-radius:12px;
+  padding:1.5rem 0;
+  justify-content:center;
+  gap:1rem;
+}
+.row-6.fx-tilt .col-1{background:transparent;}
+@media(min-width:768px){.row-6.fx-tilt .col-1{flex-basis:30%;}}
+
+.fx-card{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  text-align:center;
+  height:360px;           /* keeps image centered between texts */
+  padding:1rem;
+  border-radius:var(--card-radius);
+  overflow:hidden;
+  isolation:isolate;
+  background:var(--offwhite);
+  box-shadow:var(--card-shadow);
+  transition:transform .45s cubic-bezier(.2,.7,.2,1),box-shadow .35s ease;
+}
+
+/* rotating conic-gradient ring */
+.fx-card::before{
+  content:"";
+  position:absolute; inset:0;
+  border-radius:inherit;
+  background:conic-gradient(from 0deg,#8ab4f8,#b892ff,#ffd586,#8ab4f8);
+  animation:ringSpin 8s linear infinite;
+  z-index:0;
+}
+/* inner mask to show ring as a border */
+.fx-card::after{
+  content:"";
+  position:absolute; inset:4px;
+  border-radius:inherit;
+  background:var(--offwhite);
+  z-index:1;
+}
+
+.fx-card h3{
+  position:relative; z-index:2;
+  margin:0; font-weight:600; letter-spacing:.2px; color:#1e272e;
+}
+.fx-card .media{
+  position:relative; z-index:2;
+  width:70%; aspect-ratio:1/1; border-radius:10px; overflow:hidden; flex-shrink:0;
+  transition:transform .6s cubic-bezier(.2,.7,.2,1);
+}
+.fx-card .media img{width:100%;height:100%;object-fit:cover;display:block;}
+.fx-card:hover .media img{transform:scale(1.05);}
+.fx-card p{
+  position:relative; z-index:2;
+  margin:0; font-size:.95rem; color:#333;
+}
+.fx-card:hover{transform:translateY(-5px);box-shadow:0 10px 28px rgba(0,0,0,.1);}
+
+@keyframes ringSpin{to{transform:rotate(360deg);}}
+
+/* ---------- Responsive tweaks for Row 6 ---------- */
+@media(min-width:480px)and(max-width:767.98px){
+  .row-6.fx-tilt .col-1{flex-basis:44%;}
+  .fx-card{height:340px;}
+}
+@media(max-width:479.98px){
+  .row-6.fx-tilt .col-1{flex-basis:calc(100% - var(--gutter)*2);}
+  .fx-card{height:auto;}
+}
